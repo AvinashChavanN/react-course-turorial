@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
-import Radium from 'radium';
+import classes from './App.css';
 import Person from './components/Person/Person'
 
 class App extends Component {
@@ -61,40 +60,30 @@ class App extends Component {
   }
   render(){
 
-    let styles = {
-      border:'1px solid green',
-      backgroundColor:'green',
-      color:'white',
-      marginTop:'20px',
-      ':hover':{
-        backgroundColor:'lightgreen',
-        color:'black'
-      }
-    }
     let person = null;
-
-    const classes = [];
+    let btnClass = null;
+    const assignedclasses = [];
     if(this.state.person.length<=2){
-      classes.push('red')
+      assignedclasses.push(classes.Red)
     }
     if(this.state.person.length<=1){
-      classes.push('bold')
+      assignedclasses.push(classes.Bold)
     }
     if(this.state.showPersons){
       person =   
         this.state.person.map((person,index)=>{
          return <Person key={index} name={person.name} age={person.age} click={this.deletePerson.bind(this,person.id)} change={(event)=>{this.changePersonName(event,person.id)}}/>
         }) 
-      styles.backgroundColor = 'red'     
+      btnClass = classes.Red;
     }
     return (
-      <div className="App">
-        <p className={classes.join(' ')}>This Text will change based on persons list</p>
-        <button style={styles} onClick={this.togglePerson.bind(this)}>Show Person</button>
+      <div className={classes.App}>
+        <p className={assignedclasses.join(' ')}>This Text will change based on persons list</p>
+        <button className= {btnClass} onClick={this.togglePerson.bind(this)}>Show Person</button>
         {person}
       </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
